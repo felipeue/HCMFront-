@@ -1,0 +1,40 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<!-- Main -->
+    <header class="major">
+        <h2>Prueba HCMFront</h2>
+    </header>
+    <div class="container">
+
+        <h2>Solicitudes</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Empleado</th>
+                        <th>Sala</th>
+                        <th>Horarios</th>
+                        <th>Fecha</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for solicitud in solicitudes %}
+                    <tr>
+                        <td>{{ solicitud.reserva.empleado.first_name }} {{ solicitud.reserva.empleado.last_name }}</td>
+                        <td>{{ solicitud.sala }}</td>
+                        <td>{{ solicitud.reserva.hora_inicio }} - {{ solicitud.reserva.hora_fin }}</td>
+                        <td>{{ solicitud.reserva.fecha }}</td>
+                        <td><a href="/aceptar_solicitud/{{ solicitud.id }}/">Aprobar</a><br>
+                            <a href="/eliminar_solicitud/{{ solicitud.id }}">Rechazar</a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+{% endblock content %}

@@ -19,7 +19,7 @@
                 events: [
                 {% for i in reservas %}
                 {
-                    title: "{{ i.sala.nombre }}"  ,
+                    title: "{{ i.sala.nombre }} | {{ i.empleado.first_name }} {{ i.empleado.last_name }} | {{ i.hora_inicio }} - {{ i.hora_fin }}  "  ,
                     start: '{{ i.fecha|date:"Y-m-d" }}',
                     end: '{{ i.fecha|date:"Y-m-d" }}',
                     url: '/editar_reserva/{{ i.id }}'

@@ -48,7 +48,8 @@ class Reserva(models.Model):
 class Solicitud(models.Model):
     mensaje = models.TextField(max_length=100)
     reserva = models.ForeignKey(Reserva)
-    estado = models.BooleanField(blank=True)
+    estado = models.NullBooleanField(blank=True, default=None)
+    sala = models.ForeignKey(Sala)
 
     def __unicode__(self):
         return str(self.id)

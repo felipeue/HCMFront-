@@ -12,7 +12,7 @@
         <h4>Indica el detalle de tu solicitud </h4>
 
 
-        <form id="login" method="post" action="/agregar_solicitud/{{ r.id }}/">
+        <form id="login" method="post" action="/agregar_solicitud/{{ r.id }}/{{ sr.id }}/">
              {% csrf_token %}
             <div class="6u 12u$(xsmall)">
                 Mensaje: {{ solicitud_form.mensaje }}

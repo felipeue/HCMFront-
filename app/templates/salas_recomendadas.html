@@ -42,7 +42,7 @@
                         </td>
                         <td>
                             {% if sala.estado == 'R' %}
-                            <a href="/agregar_solicitud/{{ r.id }}">Enviar solicitud</a>
+                            <a href="/agregar_solicitud/{{ r.id }}/{{ sala.id }}">Enviar solicitud</a>
                             {% elif sala.estado == 'D' %}
                             <a href="/reservar_sala/{{ sala.id }}/{{ r.id }}/">Reservar Sala</a>
                             {% endif %}

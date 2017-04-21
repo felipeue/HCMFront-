@@ -161,18 +161,20 @@ def reservar_sala(request, sala_id, reserva_id):
 
 @login_required
 @group_required('Empleado')
-def enviar_solicitud(request, reserva_id):
+def enviar_solicitud(request, reserva_id, sala_id):
     r = Reserva.objects.get(id=reserva_id)
+    sr = Sala.objects.get(id=sala_id)
     if request.method == 'POST':
         solicitud_form = SolicitudForm(data=request.POST)
         if solicitud_form.is_valid():
             s = solicitud_form.save(commit=False)
             s.reserva = r
+            s.sala = sr
             s.save()
             return HttpResponseRedirect('/confirmacion/')
     else:
         solicitud_form = SolicitudForm()
-    return render(request, 'agregar_solicitud.html', {'solicitud_form': solicitud_form, 'r': r})
+    return render(request, 'agregar_solicitud.html', {'solicitud_form': solicitud_form, 'r': r, 'sr': sr})
 
 
 @login_required
@@ -194,3 +196,51 @@ def calendario(request):
     return render(request, 'calendario.html', {'reservas': reservas})
 
 
+
+@login_required
+@group_required('Administrador')
+def editar_reserva(request, reserva_id):
+    if request.method == 'POST':
+        reserva = Reserva.objects.get(id=reserva_id)
+        reserva_form = ReservaForm(data=request.POST)
+        if reserva_form.is_valid():
+            r = reserva_form.save(commit=False)
+            Reserva.objects.filter(id=reserva_id).update(fecha=r.fecha, hora_inicio=r.hora_inicio, hora_fin=r.hora_fin, cantidad=r.cantidad)
+            return HttpResponseRedirect('/calendario/')
+    else:
+        reserva_form = ReservaForm()
+        reserva = Reserva.objects.get(id=reserva_id)
+    return render(request, 'editar_reserva.html', {'reserva_form': reserva_form, 'reserva': reserva})
+
+
+@login_required
+@group_required('Administrador')
+def eliminar_reserva(request, reserva_id):
+    reserva = Reserva.objects.get(id=reserva_id)
+    reserva.delete()
+    return HttpResponseRedirect('/calendario/')
+
+
+@login_required
+@group_required('Administrador')
+def solicitudes(request):
+    solicitudes = Solicitud.objects.all()
+    return render(request, 'lista_solicitudes.html', {'solicitudes': solicitudes})
+
+
+@login_required
+@group_required('Administrador')
+def eliminar_solicitud(request, solicitud_id):
+    solicitud = Solicitud.objects.get(id=solicitud_id)
+    solicitud.delete()
+    return HttpResponseRedirect('/solicitudes/')
+
+@login_required
+@group_required('Administrador')
+def aceptar_solicitud(request, solicitud_id):
+    solicitud = Solicitud.objects.get(id=solicitud_id)
+    reserva = Reserva.objects.get(id=solicitud.reserva.id)
+    s = Sala.objects.get(id=solicitud.sala.id)
+    Reserva.objects.filter(id=reserva.id).update(sala=s)
+    solicitud.delete()
+    return HttpResponseRedirect('/solicitudes/')
