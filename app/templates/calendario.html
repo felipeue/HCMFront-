@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load fullcalendar_tags %}
+
+{% block content %}
+<!-- Main -->
+
+    <header class="major">
+        <h2>Prueba HCMFront</h2>
+    </header>
+    <div class="container">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.css"/>
+
+     <div id="calendar"></div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/1.6.4/fullcalendar.min.js"></script>
+<script>
+        (function ($) {
+            $('#calendar').fullCalendar({
+                events: [
+                {% for i in reservas %}
+                {
+                    title: "{{ i.sala.nombre }}"  ,
+                    start: '{{ i.fecha|date:"Y-m-d" }}',
+                    end: '{{ i.fecha|date:"Y-m-d" }}',
+                    url: '/editar_reserva/{{ i.id }}'
+
+                },
+                {% endfor %}
+                ],
+                firstDay: 1,
+
+            });
+        })(jQuery);
+    </script>
+
+    </div>
+{% endblock content %}
+

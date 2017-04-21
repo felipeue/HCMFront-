@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^reservar_sala/(?P<sala_id>[\w\-]+)/(?P<reserva_id>[\w\-]+)/$', views.reservar_sala),
     url(r'^agregar_solicitud/(?P<reserva_id>[\w\-]+)/$', views.enviar_solicitud),
     url(r'^confirmacion/$', views.envio_exitoso),
+    url(r'^logout/$', views.user_logout),
+    url(r'^calendario/$', views.calendario),
 ]

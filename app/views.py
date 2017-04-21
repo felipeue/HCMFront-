@@ -6,6 +6,7 @@ from django.utils import six
 from django.core.exceptions import PermissionDenied
 from forms import *
 from django.db.models import Q
+from fullcalendar.util import events_to_json
 
 # Create your views here.
 
@@ -178,3 +179,18 @@ def enviar_solicitud(request, reserva_id):
 @group_required('Empleado')
 def envio_exitoso(request):
     return render(request, 'confirmacion.html', {})
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+
+@login_required
+@group_required('Administrador')
+def calendario(request):
+    reservas = Reserva.objects.all()
+    return render(request, 'calendario.html', {'reservas': reservas})
+
+

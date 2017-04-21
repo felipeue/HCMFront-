@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load staticfiles %}
 {% block content %}
+
 
 <!-- Main -->
     <header class="major">
@@ -11,13 +13,13 @@
         <form id="login" method="post" action="/agregar_reserva/">
              {% csrf_token %}
             <div class="6u 12u$(xsmall)">
-                Fecha: {{ reserva_form.fecha }}{{ reserva_form.fecha.errors }}
+                Fecha: {% render_field reserva_form.fecha id="fecha" %}{{ reserva_form.fecha.errors }}
             </div>
             <div class="6u 12u$(xsmall)">
-                Horario: {{ reserva_form.hora_inicio }}{{ reserva_form.hora_fin }}{{ reserva_form.hora_inicio.errors }}{{ reserva_form.hora_fin.errors }}
+                Horario: {% render_field reserva_form.hora_inicio id="basicExample" %}{% render_field reserva_form.hora_fin id="basicExample2" %}{{ reserva_form.hora_inicio.errors }}{{ reserva_form.hora_fin.errors }}
             </div>
             <div class="6u 12u$(xsmall)">
-                Cantidad de personas: {% render_field reserva_form.cantidad type="text"%}{{ reserva_form.cantidad.errors }}
+                Cantidad de personas: {% render_field reserva_form.cantidad type="text" %}{{ reserva_form.cantidad.errors }}
             </div>
             <br>
             <div class="12u$">
@@ -27,4 +29,32 @@
             </div>
         </form>
     </div>
+    <link href="{% static "timeform/jquery.timepicker.css" %}" rel="stylesheet">
+    <link href="{% static "dateform/build/jquery.datetimepicker.min.css" %}" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="{% static "timeform/jquery.timepicker.min.js" %}"></script>
+<script src="{% static "dateform/build/jquery.datetimepicker.min.js" %}"></script>
+<script src="{% static "dateform/build/jquery.datetimepicker.full.js" %}"></script>
+<script src="{% static "dateform/build/jquery.datetimepicker.full.min.js" %}"></script>
+        <script>
+    (function ($) {
+      $('#basicExample').timepicker({
+          'timeFormat': 'H:i:s'
+      });
+    })(jQuery);
+</script>
+<script>
+    (function ($) {
+      $('#basicExample2').timepicker({
+          'timeFormat': 'H:i:s'
+      });
+    })(jQuery);
+</script>
+<script>
+    jQuery('#fecha').datetimepicker({
+        format:'Y-m-d ',
+    });
+</script>
+
 {% endblock content %}
+
