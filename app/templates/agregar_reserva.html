@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<!-- Main -->
+    <header class="major">
+        <h2>Prueba HCMFront</h2>
+    </header>
+    <div class="container">
+        <h4>Ingrese los datos de su reserva</h4>
+        <form id="login" method="post" action="/agregar_reserva/">
+             {% csrf_token %}
+            <div class="6u 12u$(xsmall)">
+                Fecha: {{ reserva_form.fecha }}{{ reserva_form.fecha.errors }}
+            </div>
+            <div class="6u 12u$(xsmall)">
+                Horario: {{ reserva_form.hora_inicio }}{{ reserva_form.hora_fin }}{{ reserva_form.hora_inicio.errors }}{{ reserva_form.hora_fin.errors }}
+            </div>
+            <div class="6u 12u$(xsmall)">
+                Cantidad de personas: {% render_field reserva_form.cantidad type="text"%}{{ reserva_form.cantidad.errors }}
+            </div>
+            <br>
+            <div class="12u$">
+                <ul class="actions">
+                    <li><input type="submit" value="Agregar insumos" class="special" /></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

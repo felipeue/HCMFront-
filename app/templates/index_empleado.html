@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<!-- Main -->
+    <header class="major">
+        <h2>Prueba HCMFront</h2>
+    </header>
+    <div class="container">
+        <h4>Bienvenido empleado</h4>
+        <span>{{ user.get_full_name|default:user.username }}</span>
+        <div class="6u 12u$(xsmall)">
+            <ul class="actions fit">
+                <li><a href="/agregar_reserva/" class="button special fit">Buscar salas disponibles</a></li>
+                <li><a href="/lista_salas/" class="button special fit">Lista de reservas</a></li>
+            </ul>
+        </div>
+
+    </div>
+{% endblock content %}

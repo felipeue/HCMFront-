@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Main -->
+    <header class="major">
+        <h2>Prueba HCMFront</h2>
+    </header>
+    <div class="container">
+    	<section>
+            <h3>Ingresa como administrador</h3>
+            <form id="login" method="post" action="/login_admin/">
+                {% csrf_token %}
+                <div class="row uniform 50%">
+                    <div class="6u 12u$(xsmall)">
+                        <input type="text" name="username" placeholder="Usuario" />
+                    </div>
+                    <div class="6u$ 12u$(xsmall)">
+                        <input type="password" name="password" placeholder="Contraseña" />
+                    </div>
+
+                    <div class="12u$">
+                        <ul class="actions">
+                            <li><input type="submit" value="Enviar" class="special" /></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+    </div>
+{% endblock content %}

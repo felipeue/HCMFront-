@@ -1,0 +1,57 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<!-- Main -->
+    <header class="major">
+        <h2>Prueba HCMFront</h2>
+    </header>
+    <div class="container">
+        <h4>Salas recomendadas para tu reserva</h4>
+
+        <h2>Salas agregadas</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Capacidad</th>
+                        <th>Horarios</th>
+                        <th>Estado</th>
+                        <th>Insumos</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for sala in salas %}
+                    <tr>
+                        <td>{{ sala.nombre }}</td>
+                        <td>{{ sala.capacidad }}</td>
+                        <td>{{ sala.hora_inicio }} - {{ sala.hora_fin }}</td>
+                        <td>{% if sala.estado == 'R' %}
+                            Reservado
+                            {% elif sala.estado == 'D' %}
+                            Disponible
+                            {% endif %}
+                        </td>
+                        <td>
+                            <ul>
+                            {% for insumo in sala.insumo_set.all %}
+                            <li>{{ insumo.nombre }} - {{ insumo.cantidad }}</li>
+                            {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            {% if sala.estado == 'R' %}
+                            <a href="/agregar_solicitud/{{ r.id }}">Enviar solicitud</a>
+                            {% elif sala.estado == 'D' %}
+                            <a href="/reservar_sala/{{ sala.id }}/{{ r.id }}/">Reservar Sala</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+{% endblock content %}

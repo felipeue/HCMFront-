@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<!-- Main -->
+    <header class="major">
+        <h2>Prueba HCMFront</h2>
+    </header>
+    <div class="container">
+        <h4>Bienvenido administrador</h4>
+        <span>{{ user.get_full_name|default:user.username }}</span>
+        <div class="6u 12u$(xsmall)">
+            <ul class="actions fit">
+                <li><a href="/agregar_sala/" class="button special fit">Agregar Sala de reunion</a></li>
+                <li><a href="#" class="button special fit">Calendario de reservas</a></li>
+            </ul>
+        </div>
+        <h2>Salas agregadas</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Capacidad</th>
+                        <th>Horarios</th>
+                        <th>Estado</th>
+                        <th>Insumos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for sala in salas %}
+                    <tr>
+                        <td>{{ sala.nombre }}</td>
+                        <td>{{ sala.capacidad }}.</td>
+                        <td>{{ sala.hora_inicio }} - {{ sala.hora_fin }}</td>
+                        <td>{{ sala.estado }}</td>
+                        <td><a href="/agregar_insumo/{{ sala.id }}">Ver y agregar insumos </a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+{% endblock content %}

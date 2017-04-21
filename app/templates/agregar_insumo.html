@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<!-- Main -->
+    <header class="major">
+        <h2>Prueba HCMFront</h2>
+    </header>
+
+    <div class="container">
+
+        <h4>Agregar insumos a: {{ s.nombre }}</h4>
+
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                {% for insumo in insumos %}
+                    <tr>
+                        <td>{{ insumo.nombre }}</td>
+                        <td>{{ insumo.cantidad }}.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        <form id="login" method="post" action="/agregar_insumo/{{ s.id }}/">
+             {% csrf_token %}
+            <div class="6u 12u$(xsmall)">
+                Nombre: {{ insumo_form.nombre }}
+            </div>
+            <div class="6u 12u$(xsmall)">
+                Cantidad: {% render_field insumo_form.cantidad type="text" %}
+            </div><br>
+            <div class="12u$">
+                <ul class="actions">
+                    <li><input type="submit" value="Agregar Insumo" class="special" /></li>
+                </ul>
+            </div>
+        </form>
+    <a href="/index_admin/">Volver</a>
+    </div>
+{% endblock content %}

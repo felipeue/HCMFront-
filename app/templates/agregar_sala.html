@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<!-- Main -->
+    <header class="major">
+        <h2>Prueba HCMFront</h2>
+    </header>
+    <div class="container">
+        <h4>Administrador</h4>
+        <span>{{ user.get_full_name|default:user.username }}</span>
+        <form id="login" method="post" action="/agregar_sala/">
+             {% csrf_token %}
+            <div class="6u 12u$(xsmall)">
+                Nombre: {{ sala_form.nombre }}{{ sala_form.nombre.errors }}
+            </div>
+            <div class="6u 12u$(xsmall)">
+                Ubicacion: {{ sala_form.ubicacion }}{{ sala_form.ubicacion.errors }}
+            </div>
+            <div class="6u 12u$(xsmall)">
+                Capacidad: {% render_field sala_form.capacidad type="text"%}
+            </div>
+            <div class="6u 12u$(xsmall)">
+                Disponibilidad: {{ sala_form.hora_inicio }}{{ sala_form.hora_inicio.errors }} {{ sala_form.hora_fin }}{{ sala_form.hora_fin.errors }}
+            </div>
+            <br>
+            <div class="12u$">
+                <ul class="actions">
+                    <li><input type="submit" value="Agregar Sala" class="special" /></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
